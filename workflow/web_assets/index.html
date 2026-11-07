@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101516">
+  <title>ProofDesk — Every fix, accounted for.</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to workspace</a>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="ProofDesk home"><span class="brand-mark">p<span>↗</span></span>ProofDesk<span class="beta">LOCAL</span></a>
+    <p class="nav-caption">WORKSPACE</p>
+    <nav aria-label="Workspace"><button class="nav-item active" id="nav-cases"><span>▤</span> Case desk <span id="nav-count" class="count">0</span></button><button class="nav-item" id="nav-connection"><span>⇄</span> Switch setup <span class="status-dot warning"></span></button></nav>
+    <div class="sidebar-note"><span class="mini-mark">✓</span><h2>Evidence before confidence.</h2><p>A clear trail from the first report to the final decision.</p></div>
+    <div class="operator"><span class="avatar">P</span><div>Local operator<small>Human review workspace</small></div></div>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb">Case desk</strong></div><div class="connection-label"><span class="status-dot" id="connection-dot"></span><span id="connection-text">Connecting to local workspace</span></div></header>
+    <main id="main" tabindex="-1">
+      <div id="alert" class="alert" role="alert" hidden></div>
+      <section id="desk-view">
+        <div class="page-heading"><div><p class="eyebrow">SUPPORT → ENGINEERING → REVIEW</p><h1>Every fix,<br><span>accounted for.</span></h1><p class="lede">Turn a bug report into a patch you can actually trust.<br class="desktop-break"> Independent checks. Clear handoffs. Your final say.</p></div><button class="primary" id="new-case"><span>＋</span> New case</button></div>
+        <div class="metrics" aria-label="Case statistics"><div><span class="metric-label">TOTAL CASES</span><strong id="metric-total">—</strong><small>In this local workspace</small></div><div><span class="metric-label">AWAITING REVIEW</span><strong id="metric-review">—</strong><small>Verified, ready for your decision</small></div><div><span class="metric-label">IN PROGRESS</span><strong id="metric-progress">—</strong><small>Intake, reproduction or repair</small></div><div><span class="metric-label">ACCEPTED & CLOSED</span><strong id="metric-closed">—</strong><small>Local acceptance recorded</small></div></div>
+        <div class="section-heading"><div><h2>Your case desk <span id="table-count" class="count">0</span></h2><p>Real reports and their latest recorded state.</p></div><button class="text-button" id="refresh">↻ Refresh</button></div>
+        <div class="toolbar"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search cases or reports…" aria-label="Search cases"></label><label class="filter-label">Status<select id="filter"><option value="all">All cases</option><option value="active">In progress</option><option value="review">Awaiting review</option><option value="closed">Closed</option></select></label></div>
+        <div class="case-table"><div class="table-header"><span>CASE / REPORT</span><span>STATUS</span><span>CANDIDATES</span><span>UPDATED</span><span></span></div><div id="case-list" aria-live="polite"><div class="empty">Loading recorded cases…</div></div></div>
+        <div class="desk-footer"><span><span class="status-dot"></span> Evidence is read from your local case store</span><span>No merge, deployment, or customer delivery is automatic.</span></div>
+      </section>
+      <section id="detail-view" hidden></section>
+      <section id="setup-view" hidden>
+        <p class="eyebrow">CONNECT THE PEOPLE DOING THE WORK</p><h1 class="compact-title">One workflow.<br><span>Three clear roles.</span></h1><p class="lede">ProofDesk keeps the evidence. Switch carries the conversation.</p>
+        <div class="notice"><span class="status-dot warning"></span><div><strong>Live Switch connection not yet verified</strong><p>This workspace reads real local cases. It does not connect to Switch or send chat messages on your behalf. Complete the setup below to run the agents live.</p></div></div>
+        <div class="roles"><article><span class="role-number">01 / SUPPORT</span><h2>Concierge</h2><p>Collects the facts, opens a case, and keeps the person informed.</p><code>agents/concierge.md</code></article><article><span class="role-number">02 / ENGINEERING</span><h2>Builder</h2><p>Reproduces the problem and commits a focused candidate patch.</p><code>agents/builder.md</code></article><article><span class="role-number">03 / VERIFICATION</span><h2>Verifier</h2><p>Tests the exact revision against independently maintained checks.</p><code>agents/verifier.md</code></article></div>
+        <div class="setup-grid"><article class="panel"><p class="eyebrow">SETUP CHECKLIST</p><h2>Get a real case moving</h2><ol class="setup-list"><li>Install Switch Console and start or join a server.</li><li>Sign in to a supported coding-agent provider. Confirm its free allowance before use.</li><li>Use built-in rooms where supported, or connect a messaging app and link your account.</li><li>Import <code>switch/proofdesk.template.yaml</code> with this project as the working directory.</li><li>Test mentions and handoffs for all three agents.</li><li>Prepare a fresh baseline with the command below and paste the generated request into Switch.</li></ol><div class="command"><code>python -m scripts.live</code><button class="text-button" id="copy-prepare">Copy</button></div><a href="https://docs.switchagents.ai/switch-rooms/getting-started" target="_blank" rel="noreferrer">Open official Switch quickstart ↗</a></article><article class="panel"><p class="eyebrow">LOCAL READINESS</p><h2>What we can verify here</h2><dl id="health-details"></dl><p class="muted">No AI API key is needed for this dashboard. Agents use the provider account configured in Switch. Never paste credentials into a case report.</p></article></div>
+      </section>
+      <footer class="page-footer"><span class="footer-brand">ProofDesk</span><span>Built around proof. Powered by people + agents.</span><span>LOCAL WORKSPACE / v0.2</span></footer>
+    </main>
+  </div>
+  <dialog id="case-dialog" aria-labelledby="dialog-title"><form id="case-form"><div class="dialog-heading"><div><p class="eyebrow">NEW REPORT</p><h2 id="dialog-title">Start with the facts.</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Close dialog">×</button></div><p class="muted">This prototype supports the documented order-total policy. Creating a case does not dispatch agents; send the handoff in your Switch room.</p><label>Report title<input name="summary" required maxlength="300" placeholder="What went wrong?"></label><div class="form-row"><label>Request reference<input name="request_key" required maxlength="500" placeholder="Platform message ID or a unique local reference"></label><label>Source<select name="source"><option value="Manual operator report">Manual report</option><option value="Synthetic example entered by operator">Synthetic example</option></select></label></div><label>Steps to reproduce<textarea name="steps" required rows="2" placeholder="Function inputs and the steps that reproduce it"></textarea></label><div class="form-row"><label>Expected result<textarea name="expected" required rows="3"></textarea></label><label>Actual result<textarea name="actual" required rows="3"></textarea></label></div><p id="form-error" class="form-error" role="alert" hidden></p><div class="dialog-footer"><span>Policy: order-total-v1</span><button class="primary" type="submit">Create case ↗</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

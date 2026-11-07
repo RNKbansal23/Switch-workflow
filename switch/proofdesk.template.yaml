@@ -1,0 +1,96 @@
+# Draft against the documented version-1 language; live server validation pending.
+# Source contract: https://github.com/sandbox-quantum/switch/blob/main/docs/TEMPLATES.md
+version: 1
+params:
+  team:
+    type: string
+    default: proofdesk
+    pattern: "[a-z][a-z0-9-]*"
+    description: Unique prefix for this team's agents and rooms
+  provider:
+    type: provider
+    required: true
+    description: Choose a signed-in provider with a confirmed free allowance; this template does not select a paid model for you
+  location:
+    type: location
+    default: local
+  directory:
+    type: directory
+    description: Existing absolute ProofDesk project directory on the selected machine
+    required: true
+  bridge:
+    type: bridge
+    required: false
+    description: Optional messaging app; leave empty for the server default or Switch-only rooms where supported
+agents:
+  - name: "{team}-concierge"
+    description: Clarifies reports and drafts evidence-backed replies
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{directory}"
+    addressing: owner-agents
+    auto_mode: false
+    auto_approve: false
+    instructions: |
+      Read agents/concierge.md and follow it as your workflow contract.
+      Your Builder is @{team}-builder. Your support room is {team}-support.
+      Use the shared .proofdesk state directory under your working directory.
+      Never invoke workflow.review or claim a fixture rehearsal was live.
+  - name: "{team}-builder"
+    description: Reproduces reports and prepares candidate commits
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{directory}"
+    addressing: owner-agents
+    auto_mode: false
+    auto_approve: false
+    instructions: |
+      Read agents/builder.md and follow it as your workflow contract.
+      Your Concierge is @{team}-concierge and Verifier is @{team}-verifier.
+      Your rooms are {team}-support and {team}-engineering.
+      Use the shared .proofdesk state directory under your working directory.
+  - name: "{team}-verifier"
+    description: Runs independent checks against exact candidate revisions
+    provider: "{provider}"
+    location: "{location}"
+    directory: "{directory}"
+    addressing: owner-agents
+    auto_mode: false
+    auto_approve: false
+    instructions: |
+      Read agents/verifier.md and follow it as your workflow contract.
+      Your Builder is @{team}-builder. Work in {team}-engineering.
+      Use the shared .proofdesk state directory under your working directory.
+      Report executed evidence. Do not approve or edit candidate code.
+group:
+  name: "{team}"
+  description: Customer report to independently checked local patch
+rooms:
+  - name: "{team}-support"
+    description: Report intake, human review, and reply drafts
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: ["{team}-concierge", "{team}-builder"]
+    users: ["{$creator}"]
+    instructions: |
+      Keep one thread per case. Post the case ID, state, evidence, and next actor.
+      This is a synthetic hackathon demo. A closed case is not a deployment.
+      Human review happens in the separate review CLI, not an agent message.
+    kickoff: "@{team}-concierge introduce the intake flow; do not create a case yet."
+  - name: "{team}-engineering"
+    description: Reproduction, candidate patches, and independent verification
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: ["{team}-builder", "{team}-verifier"]
+    users: ["{$creator}"]
+    instructions: |
+      Tie every handoff to a case ID and full candidate commit.
+      Report executed checks and evidence paths. Limit automatic repair attempts.
+      Never grant human approval or change the trusted acceptance policy.
+links:
+  - from: "{team}-support"
+    to: "{team}-engineering"
+    label: engineering
+  - from: "{team}-engineering"
+    to: "{team}-support"
+    label: customer-context

@@ -1,0 +1,8 @@
+{
+  "policy": "order-total-v1",
+  "summary": "Order total is incorrect when a ten-percent discount is applied",
+  "steps": "Call order_total('10.05', 1, '10') on the baseline revision.",
+  "expected": "9.05: calculate the full order discount exactly, then round the final total to two decimal places using ROUND_HALF_UP.",
+  "actual": "10.05 on the baseline: the discount is ignored.",
+  "source": "Synthetic hackathon fixture, not a real customer report"
+}

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proofdesk"
+version = "0.2.0"
+description = "Evidence-backed customer bug resolution for Switch rooms"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+proofdesk = "workflow.cli:main"
+proofdesk-review = "workflow.review:main"
+proofdesk-web = "workflow.web:main"
+
+[tool.setuptools.packages.find]
+include = ["workflow*"]
+
+[tool.setuptools.package-data]
+workflow = ["web_assets/*.html", "web_assets/*.css", "web_assets/*.js"]
