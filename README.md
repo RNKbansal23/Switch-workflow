@@ -2,7 +2,7 @@
 
 Customer bug report → reproduced failure → candidate patch → independent checks → human review → reply draft.
 
-Built for the Flip the Switch hackathon's Business Workflow track. The local case engine and operator dashboard are implemented. Live Switch integration is prepared but has not been exercised on a running server.
+Built for the Flip the Switch hackathon's Business Workflow track. The local case engine and operator dashboard are implemented. A genuine Discord/Switch/Codex run completed on November 7: a synthetic report produced an agent-written candidate, 11/11 independent passing checks, one human approval, an unsent reply draft, and a CLOSED local case. See the [live-run record](docs/LIVE-RUN.md) and [actual candidate diff](evidence/live-run/candidate.patch).
 
 ## Open the workspace
 
@@ -33,6 +33,7 @@ Requires Python 3.11+ and Git. The demo executes **labelled prepared fixtures**,
 | [Operator workspace](docs/WORKSPACE.md) | Dashboard, review, export, and local access |
 | [Live setup](docs/LIVE-SETUP.md) | Free-provider options and required connections |
 | [Finish plan](FINISH-PLAN.md) | Ordered integration and submission checklist |
+| [Video script](docs/VIDEO-SCRIPT.md) | Recording setup, exact narration, screens, and commands |
 | [Implementation plan](WORKFLOW-PLAN.md) | Milestones, current status, remaining work |
 | [Detailed workflow](docs/WORKFLOW-SPEC.md) | States, evidence, handoffs, recovery, limits |
 | [Demo runbook](docs/demo.md) | Local rehearsal and genuine live-run steps |

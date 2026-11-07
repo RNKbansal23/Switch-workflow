@@ -1,0 +1,55 @@
+diff --git a/demo-app/order_total.py b/demo-app/order_total.py
+index 24ecce2..d805f8d 100644
+--- a/demo-app/order_total.py
++++ b/demo-app/order_total.py
+@@ -1,7 +1,4 @@
+-"""Intentionally broken baseline for the ProofDesk demonstration.
+-
+-This fixture ignores discounts. It is not the implementation to ship.
+-"""
++"""Calculate discounted order totals with one final monetary rounding."""
+ 
+ from decimal import Decimal, ROUND_HALF_UP
+ 
+@@ -12,4 +9,5 @@ def order_total(unit_price: str, quantity: int, discount_percent: str = "0") ->
+         raise ValueError("Values must be finite")
+     if price < 0 or type(quantity) is not int or quantity < 0 or not 0 <= discount <= 100:
+         raise ValueError("Invalid order")
+-    return str((price * quantity).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
++    total = price * quantity * (Decimal("100") - discount) / Decimal("100")
++    return str(total.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+diff --git a/demo-app/test_order_total.py b/demo-app/test_order_total.py
+new file mode 100644
+index 0000000..c043b92
+--- /dev/null
++++ b/demo-app/test_order_total.py
+@@ -0,0 +1,29 @@
++import unittest
++
++from order_total import order_total
++
++
++class OrderTotalTests(unittest.TestCase):
++    def test_discount_and_final_rounding(self):
++        for price, quantity, discount, expected in [
++            ("10.05", 1, "10", "9.05"),
++            ("10.04", 1, "10", "9.04"),
++            ("0.05", 3, "10", "0.14"),
++            ("12.50", 2, "0", "25.00"),
++            ("12.50", 2, "100", "0.00"),
++        ]:
++            with self.subTest(price=price, quantity=quantity, discount=discount):
++                self.assertEqual(order_total(price, quantity, discount), expected)
++
++    def test_invalid_orders(self):
++        for args in [
++            ("-1", 1, "0"), ("1", -1, "0"), ("1", 1.5, "0"),
++            ("1", True, "0"), ("1", 1, "101"), ("1", 1, "-1"),
++            ("NaN", 1, "0"), ("1", 1, "Infinity"),
++        ]:
++            with self.subTest(args=args), self.assertRaises(ValueError):
++                order_total(*args)
++
++
++if __name__ == "__main__":
++    unittest.main()

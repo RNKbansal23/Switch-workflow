@@ -6,6 +6,8 @@ The event evaluates Switch usage, execution, creativity/impact, and presentation
 
 ## Implementation status
 
+Live milestone update: **PD-41b429bc34c2 reached CLOSED** through actual Discord/Switch/Codex collaboration, independent verification, dashboard approval by the person, and Concierge's unsent draft/closure. See [completed live run](docs/LIVE-RUN.md). Earlier pending notes below describe the environment before this successful run. Final recording, clean-checkout validation, and submission remain outstanding.
+
 Started November 4, 2026. The local state machine, Git snapshot verifier, evidence files, separate review command, reply draft, and labelled fixture rehearsal are implemented. Agent instructions and a draft Switch template are prepared. The automated suite exercises rejection, revised candidates, review/closure, deduplication, clarification, stale decisions, invalid output, and evidence integrity.
 
 **Live integration remains pending:** Docker's engine was unavailable during the environment check; no running Switch process was observed. Provider sign-in, template import, room addressing, genuine agent-generated fixes, transcript capture, and recording must be verified before calling this a completed Switch entry.

@@ -1,5 +1,9 @@
 # Validation record
 
+## Completed live workflow
+
+Case **PD-41b429bc34c2** completed through Discord, Switch and Codex. Saved state confirms **CLOSED**, candidate **c10966e1b9bb3d58f644c6762eff89887ea144e3**, **11/11** independent checks, **one candidate attempt**, **one human approval**, and an unsent response draft. Post-closure evidence hashes validated. This supersedes the earlier integration-pending observations below; final recording/submission and fresh-checkout validation remain pending. See [live-run record](LIVE-RUN.md).
+
 ## November 7 operator workspace
 
 - `python -m unittest discover -s tests -q`: **26 tests passed**, including eight HTTP/presentation/live-preparation regression tests.
